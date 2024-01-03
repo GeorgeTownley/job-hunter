@@ -1,4 +1,6 @@
 bootstrap + vite - react frontent
+(next + tailwind)
+
 SQLite backend
 Node + express application server
 
