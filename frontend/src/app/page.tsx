@@ -20,7 +20,10 @@ export default function Home() {
     work_type: "",
     pay: "",
   });
+
   const [applications, setApplications] = useState<Application[]>([]);
+
+  const [formKey, setFormKey] = useState(Date.now());
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,12 +32,32 @@ export default function Home() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await fetch("http://localhost:3001/applications", {
+      const response = await fetch("http://localhost:3001/applications", {
         method: "POST",
         body: JSON.stringify(formData),
         headers: { "Content-Type": "application/json" },
       });
-      // Optionally, fetch the updated data here
+
+      if (!response.ok) {
+        // If the server response is not OK, throw an error
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Assuming the response is ok, clear the form by resetting formData and formKey
+      setFormData({
+        employer: "",
+        dateApplied: "",
+        platform: "",
+        progress: "",
+        work_type: "",
+        pay: "",
+      });
+
+      // Change the key to force re-render of the form
+      setFormKey(Date.now());
+
+      // Here you can also provide feedback to the user or refresh the data displayed
+      // ...
     } catch (error: unknown) {
       // Handle or log the error
       console.error("Error submitting form:", error);
@@ -58,7 +81,11 @@ export default function Home() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="max-w-md mx-auto my-8">
+      <form
+        key={formKey}
+        onSubmit={handleSubmit}
+        className="max-w-md mx-auto my-8"
+      >
         <div className="flex flex-col space-y-4">
           <input
             type="text"
