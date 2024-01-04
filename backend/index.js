@@ -23,7 +23,6 @@ app.get("/applications/all", (req, res) => {
     }
     // If no error, send the retrieved rows (data) in the response
     res.json({
-      message: "Success",
       data: rows,
     });
   });
