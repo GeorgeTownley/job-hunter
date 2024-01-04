@@ -10,4 +10,22 @@ const db = new sqlite3.Database(
   }
 );
 
+db.run(
+  `CREATE TABLE IF NOT EXISTS job_applications (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    employer TEXT NOT NULL,
+    date_applied DATE NOT NULL,
+    platform TEXT NOT NULL,
+    progress TEXT NOT NULL,
+    work_type TEXT NOT NULL,
+    pay INTEGER
+  )`,
+  (err) => {
+    if (err) {
+      console.error(err.message);
+    }
+    console.log("Created the job_applications table.");
+  }
+);
+
 module.exports = db;
