@@ -12,6 +12,23 @@ app.get("/applications", (req, res) => {
   res.send("Hello from the backend!");
 });
 
+// GET route for /applications/all
+app.get("/applications/all", (req, res) => {
+  const sql = "SELECT * FROM job_applications";
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      // If an error occurs, send the error message in the response
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    // If no error, send the retrieved rows (data) in the response
+    res.json({
+      message: "Success",
+      data: rows,
+    });
+  });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
