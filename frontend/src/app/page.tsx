@@ -65,19 +65,21 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/applications");
-        const data = await response.json();
-        setApplications(data);
-      } catch (error: unknown) {
-        // Handle or log the error
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/applications/all");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const result = await response.json();
+      setApplications(result.data); // Access the 'data' key of the JSON object
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <div>
