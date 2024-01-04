@@ -58,67 +58,108 @@ export default function Home() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="employer"
-          value={formData.employer}
-          onChange={handleChange}
-          placeholder="Employer"
-        />
-        <input
-          type="date"
-          name="dateApplied"
-          value={formData.dateApplied}
-          onChange={handleChange}
-          placeholder="Date Applied"
-        />
-        <input
-          type="text"
-          name="platform"
-          value={formData.platform}
-          onChange={handleChange}
-          placeholder="Platform"
-        />
-        <input
-          type="text"
-          name="progress"
-          value={formData.progress}
-          onChange={handleChange}
-          placeholder="Progress"
-        />
-        <input
-          type="text"
-          name="work_type"
-          value={formData.work_type}
-          onChange={handleChange}
-          placeholder="Work type"
-        />
-        <input
-          type="text"
-          name="pay"
-          value={formData.pay}
-          onChange={handleChange}
-          placeholder="Pay"
-        />
-        <button type="submit">Submit</button>
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto my-8">
+        <div className="flex flex-col space-y-4">
+          <input
+            type="text"
+            name="employer"
+            value={formData.employer}
+            onChange={handleChange}
+            placeholder="Employer"
+            className="px-4 py-2 border rounded-md"
+          />
+          <input
+            type="date"
+            name="dateApplied"
+            value={formData.dateApplied}
+            onChange={handleChange}
+            placeholder="Date Applied"
+            className="px-4 py-2 border rounded-md"
+          />
+          <input
+            type="text"
+            name="platform"
+            value={formData.platform}
+            onChange={handleChange}
+            placeholder="Platform"
+            className="px-4 py-2 border rounded-md"
+          />
+          <input
+            type="text"
+            name="progress"
+            value={formData.progress}
+            onChange={handleChange}
+            placeholder="Progress"
+            className="px-4 py-2 border rounded-md"
+          />
+          <input
+            type="text"
+            name="work_type"
+            value={formData.work_type}
+            onChange={handleChange}
+            placeholder="Work type"
+            className="px-4 py-2 border rounded-md"
+          />
+          <input
+            type="text"
+            name="pay"
+            value={formData.pay}
+            onChange={handleChange}
+            placeholder="Pay"
+            className="px-4 py-2 border rounded-md"
+          />
+        </div>
+        <button
+          type="submit"
+          className="px-4 py-2  mt-4   bg-blue-500 text-white rounded-md hover:bg-blue-700"
+        >
+          Submit
+        </button>
       </form>
-      <table>
-        <thead>
+      <table className="min-w-full divide-y divide-gray-200 shadow-sm">
+        <thead className="bg-gray-50">
           <tr>
-            <th>Employer</th>
-            <th>Date Applied</th>
-            <th>Platform</th>
-            {/* Other headers */}
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Employer
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Date Applied
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Platform
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Progress
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Work Type
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Pay
+            </th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="bg-white divide-y divide-gray-200">
           {applications.map((application) => (
             <tr key={application.id}>
-              <td>{application.employer}</td>
-              <td>{application.dateApplied}</td>
-              <td>{application.platform}</td>
-              {/* Other data */}
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {application.employer}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {application.dateApplied}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {application.platform}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {application.progress}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {application.work_type}
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {application.pay}
+              </td>
             </tr>
           ))}
         </tbody>
