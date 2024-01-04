@@ -8,7 +8,7 @@ type Application = {
   platform: string;
   progress: string;
   work_type: string;
-  pay: string;
+  pay: number;
 };
 
 export default function Home() {
@@ -187,7 +187,7 @@ export default function Home() {
                 {application.work_type}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {application.pay}
+                {new Intl.NumberFormat("en-US").format(application.pay)}
               </td>
             </tr>
           ))}
