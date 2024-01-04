@@ -8,7 +8,7 @@ const port = 3001; // Has to be on a different port than the react front end
 app.use(cors());
 app.use(express.json()); // For parsing application/json
 
-app.get("/", (req, res) => {
+app.get("/applications", (req, res) => {
   res.send("Hello from the backend!");
 });
 
