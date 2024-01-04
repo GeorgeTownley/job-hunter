@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 type Application = {
   id: number;
   employer: string;
-  dateApplied: string;
+  date_applied: string;
   platform: string;
   progress: string;
   work_type: string;
@@ -14,7 +14,7 @@ type Application = {
 export default function Home() {
   const [formData, setFormData] = useState({
     employer: "",
-    dateApplied: "",
+    date_applied: "",
     platform: "",
     progress: "",
     work_type: "",
@@ -46,7 +46,7 @@ export default function Home() {
       // Assuming the response is ok, clear the form by resetting formData and formKey
       setFormData({
         employer: "",
-        dateApplied: "",
+        date_applied: "",
         platform: "",
         progress: "",
         work_type: "",
@@ -100,7 +100,7 @@ export default function Home() {
           <input
             type="date"
             name="dateApplied"
-            value={formData.dateApplied}
+            value={formData.date_applied}
             onChange={handleChange}
             placeholder="Date Applied"
             className="px-4 py-2 border rounded-md"
@@ -175,7 +175,7 @@ export default function Home() {
                 {application.employer}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {application.dateApplied}
+                {application.date_applied}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 {application.platform}
