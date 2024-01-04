@@ -34,31 +34,24 @@ app.listen(port, () => {
 
 app.post("/applications", (req, res) => {
   // Destructure the properties from req.body
-  const { employer, dateApplied, platform, progress, workType, pay } = req.body;
+  const { employer, dateApplied, platform, progress, work_type, pay } =
+    req.body;
 
   // Prepare the SQL query
   const sql = `INSERT INTO job_applications (employer, date_applied, platform, progress, work_type, pay) VALUES (?, ?, ?, ?, ?, ?)`;
 
   // Execute the SQL query
-  db.run(sql, [employer, dateApplied, platform, progress, workType, pay], function(err) {
-    if (err) {
-      // If an error occurs, send the error message in the response
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    // If no error, send the newly created application ID in the response
-    res.json({ id: this.lastID });
-  });
-});
-
   db.run(
     sql,
-    [employer, dateApplied, platform, progress, workType, pay],
+    [employer, dateApplied, platform, progress, work_type, pay],
     function (err) {
       if (err) {
-        res.status(400).json({ error: err.message });
+        console.error(err);
+        // If an error occurs, send the error message in the response
+        res.status(500).json({ error: err.message });
         return;
       }
+      // If no error, send the newly created application ID in the response
       res.json({ id: this.lastID });
     }
   );
