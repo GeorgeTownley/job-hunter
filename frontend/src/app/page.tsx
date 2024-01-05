@@ -234,9 +234,10 @@ export default function Home() {
           <tbody className="bg-white divide-y divide-gray-200">
             {applications.map((application) => (
               <tr key={application.id}>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {editingId === application.id ? (
                     <input
+                      className="text-center"
                       type="text"
                       name="employer"
                       value={editableData.employer}
@@ -246,9 +247,10 @@ export default function Home() {
                     application.employer
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {editingId === application.id ? (
                     <input
+                      className="text-center"
                       type="date"
                       name="date_applied"
                       value={editableData.date_applied}
@@ -259,9 +261,10 @@ export default function Home() {
                     application.date_applied
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {editingId === application.id ? (
                     <input
+                      className="text-center"
                       type="text"
                       name="platform"
                       value={editableData.platform}
@@ -271,9 +274,10 @@ export default function Home() {
                     application.platform
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {editingId === application.id ? (
                     <input
+                      className="text-center"
                       type="text"
                       name="progress"
                       value={editableData.progress}
@@ -283,9 +287,10 @@ export default function Home() {
                     application.progress
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {editingId === application.id ? (
                     <input
+                      className="text-center"
                       type="text"
                       name="work_type"
                       value={editableData.work_type}
@@ -295,9 +300,10 @@ export default function Home() {
                     application.work_type
                   )}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900">
                   {editingId === application.id ? (
                     <input
+                      className="text-center"
                       type="number"
                       name="pay"
                       value={editableData.pay}
