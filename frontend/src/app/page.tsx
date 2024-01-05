@@ -31,6 +31,8 @@ export default function Home() {
     pay: 0,
   });
 
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+
   const [applications, setApplications] = useState<Application[]>([]);
 
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -43,10 +45,7 @@ export default function Home() {
 
   // This handleChange is for when you're editing an application
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // Delay state update until onBlur event
-    if (e.type === "blur" || e.target.name !== "date_applied") {
-      setEditableData({ ...editableData, [e.target.name]: e.target.value });
-    }
+    setEditableData({ ...editableData, [e.target.name]: e.target.value });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,7 +66,7 @@ export default function Home() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Assuming the response is ok, clear the form by resetting formData and formKey
+      // Clear the form by resetting formData
       setFormData({
         employer: "",
         date_applied: "",
@@ -76,7 +75,10 @@ export default function Home() {
         work_type: "",
         pay: "",
       });
-    } catch (error: unknown) {
+
+      // Fetch the updated list of applications
+      fetchData();
+    } catch (error) {
       // Handle or log the error
       console.error("Error submitting form:", error);
     }
@@ -121,6 +123,24 @@ export default function Home() {
       setApplications(result.data); // Access the 'data' key of the JSON object
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleConfirmDelete = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:3001/applications/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Remove the deleted item from the state
+      setApplications(applications.filter((app) => app.id !== id));
+      setDeletingId(null); // Reset the deletingId state
+    } catch (error) {
+      console.error("Error deleting application:", error);
     }
   };
 
@@ -184,7 +204,7 @@ export default function Home() {
           Submit
         </button>
       </form>
-      <table className="min-w-full divide-y divide-gray-200 shadow-sm">
+      <table className="min-w-full divide-y divide-gray-200 shadow-sm table-fixed w-full">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -205,6 +225,8 @@ export default function Home() {
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Pay
             </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -292,6 +314,17 @@ export default function Home() {
                 ) : (
                   // Otherwise, render the Edit button which is always visible
                   <button onClick={() => handleEdit(application)}>Edit</button>
+                )}
+              </td>
+              <td>
+                {deletingId === application.id ? (
+                  <button onClick={() => handleConfirmDelete(application.id)}>
+                    Confirm
+                  </button>
+                ) : (
+                  <button onClick={() => setDeletingId(application.id)}>
+                    Delete
+                  </button>
                 )}
               </td>
             </tr>
