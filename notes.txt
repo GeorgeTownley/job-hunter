@@ -1,9 +1,13 @@
 to do 
 
-- try to remove form key and stead use state to reset fields after submission 
-    - also get the table to rerender after a submission is made so that the new data appears
+- try to remove form key and stead use state to reset fields after submission (completed 5/1)
+    - also get the table to rerender after a submission is made so that the new data appears (completed 5/1)
 
-- delete button
-- edit button 
+- delete button (completed 5/1)
+- edit button (completed 5/1)
+
+- finish centre aligning data in cells + add some padding to the actions cells
+
+- add login screen 
 
 - get the website hosted then use login details
