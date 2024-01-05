@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 type Application = {
   id: number;
@@ -36,6 +36,29 @@ export default function Home() {
   const [applications, setApplications] = useState<Application[]>([]);
 
   const [editingId, setEditingId] = useState<number | null>(null);
+
+  const deleteRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    // Function to handle click event
+    function handleClickOutside(event: MouseEvent) {
+      // If the click was outside the deleteRef element, reset deletingId
+      if (
+        deleteRef.current &&
+        !deleteRef.current.contains(event.target as Node)
+      ) {
+        setDeletingId(null);
+      }
+    }
+
+    // Add event listener when the component mounts
+    window.addEventListener("mousedown", handleClickOutside);
+
+    // Return function to be called when the component unmounts
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Call this function when the Edit button is clicked
   const handleEdit = (application: Application) => {
@@ -309,7 +332,7 @@ export default function Home() {
                 </td>
 
                 <td>
-                  <div className="flex px-4 py-2 justify-center items-center space-x-2">
+                  <div className="flex px-1 py-2 justify-center items-center space-x-3">
                     {editingId === application.id ? (
                       // Render the Save button only if we're in edit mode for this row
                       <button
@@ -336,6 +359,14 @@ export default function Home() {
                       </button>
                     ) : (
                       <button
+                        ref={deleteRef}
+                        onBlur={() => {
+                          // Check if the currently focused element is not the confirm button
+                          // If so, reset the deletingId state
+                          if (document.activeElement !== deleteRef.current) {
+                            setDeletingId(null);
+                          }
+                        }}
                         className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700"
                         onClick={() => setDeletingId(application.id)}
                       >
