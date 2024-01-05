@@ -12,6 +12,10 @@ app.get("/applications", (req, res) => {
   res.send("Hello from the backend!");
 });
 
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
 // GET route for /applications/all
 app.get("/applications/all", (req, res) => {
   const sql = "SELECT * FROM job_applications";
@@ -28,13 +32,9 @@ app.get("/applications/all", (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
 app.post("/applications", (req, res) => {
   // Destructure the properties from req.body
-  const { employer, dateApplied, platform, progress, work_type, pay } =
+  const { employer, date_applied, platform, progress, work_type, pay } =
     req.body;
 
   // Prepare the SQL query
@@ -43,7 +43,7 @@ app.post("/applications", (req, res) => {
   // Execute the SQL query
   db.run(
     sql,
-    [employer, dateApplied, platform, progress, work_type, pay],
+    [employer, date_applied, platform, progress, work_type, pay],
     function (err) {
       if (err) {
         console.error(err);
@@ -75,4 +75,18 @@ app.put("/applications/:id", (req, res) => {
       res.json({ message: "Updated successfully", rowsUpdated: this.changes });
     }
   );
+});
+
+app.delete("/applications/:id", (req, res) => {
+  const { id } = req.params;
+
+  const sql = "DELETE FROM job_applications WHERE id = ?";
+
+  db.run(sql, id, function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({ message: "Deleted successfully", rowsDeleted: this.changes });
+  });
 });
