@@ -40,9 +40,8 @@ export default function Home() {
   const deleteRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    // Function to handle click event
     function handleClickOutside(event: MouseEvent) {
-      // If the click was outside the deleteRef element, reset deletingId
+      // Cast event.target to Node type
       if (
         deleteRef.current &&
         !deleteRef.current.contains(event.target as Node)
@@ -51,12 +50,11 @@ export default function Home() {
       }
     }
 
-    // Add event listener when the component mounts
-    window.addEventListener("mousedown", handleClickOutside);
-
-    // Return function to be called when the component unmounts
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      window.removeEventListener("mousedown", handleClickOutside);
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
