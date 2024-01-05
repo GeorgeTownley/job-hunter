@@ -208,26 +208,27 @@ export default function Home() {
         <table className="min-w-full divide-y divide-gray-200 shadow-sm table-fixed w-full">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Employer
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Date Applied
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Platform
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Progress
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Work Type
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase tracking-wider">
                 Pay
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-              <th></th>
+              <th className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -307,7 +308,7 @@ export default function Home() {
                   )}
                 </td>
                 <td>
-                  <div className="flex justify-center items-center">
+                  <div className="flex g-2 justify-center items-center">
                     {editingId === application.id ? (
                       // Render the Save button only if we're in edit mode for this row
                       <button
@@ -325,10 +326,6 @@ export default function Home() {
                         Edit
                       </button>
                     )}
-                  </div>
-                </td>
-                <td>
-                  <div className="flex justify-center items-center">
                     {deletingId === application.id ? (
                       <button
                         className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700"
