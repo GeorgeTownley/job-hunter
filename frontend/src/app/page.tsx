@@ -37,6 +37,17 @@ export default function Home() {
 
   const [editingId, setEditingId] = useState<number | null>(null);
 
+  // Call this function when the Edit button is clicked
+  const handleEdit = (application: Application) => {
+    setEditingId(application.id);
+    setEditableData(application); // Set the application data to editableData state
+  };
+
+  // This handleChange is for when you're editing an application
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditableData({ ...editableData, [e.target.name]: e.target.value });
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -189,7 +200,7 @@ export default function Home() {
                     type="text"
                     name="employer"
                     value={editableData.employer}
-                    onChange={handleChange}
+                    onChange={handleEditChange}
                   />
                 ) : (
                   application.employer
@@ -201,7 +212,7 @@ export default function Home() {
                     type="date"
                     name="Date Applied"
                     value={editableData.date_applied}
-                    onChange={handleChange}
+                    onChange={handleEditChange}
                   />
                 ) : (
                   application.date_applied
@@ -213,7 +224,7 @@ export default function Home() {
                     type="text"
                     name="platform"
                     value={editableData.platform}
-                    onChange={handleChange}
+                    onChange={handleEditChange}
                   />
                 ) : (
                   application.platform
@@ -225,7 +236,7 @@ export default function Home() {
                     type="text"
                     name="progress"
                     value={editableData.progress}
-                    onChange={handleChange}
+                    onChange={handleEditChange}
                   />
                 ) : (
                   application.progress
@@ -237,7 +248,7 @@ export default function Home() {
                     type="text"
                     name="work_type"
                     value={editableData.work_type}
-                    onChange={handleChange}
+                    onChange={handleEditChange}
                   />
                 ) : (
                   application.work_type
@@ -249,16 +260,14 @@ export default function Home() {
                     type="text"
                     name="pay"
                     value={editableData.pay}
-                    onChange={handleChange}
+                    onChange={handleEditChange}
                   />
                 ) : (
                   new Intl.NumberFormat("en-US").format(application.pay)
                 )}
               </td>
               <td>
-                <button onClick={() => setEditingId(application.id)}>
-                  Edit
-                </button>
+                <button onClick={() => handleEdit(application)}>Edit</button>
               </td>
             </tr>
           ))}
