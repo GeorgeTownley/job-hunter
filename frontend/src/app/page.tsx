@@ -99,7 +99,7 @@ export default function Home() {
           />
           <input
             type="date"
-            name="dateApplied"
+            name="date_a  pplied"
             value={formData.date_applied}
             onChange={handleChange}
             placeholder="Date Applied"

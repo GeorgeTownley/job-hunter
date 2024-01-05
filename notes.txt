@@ -1,0 +1,9 @@
+to do 
+
+- try to remove form key and stead use state to reset fields after submission 
+    - also get the table to rerender after a submission is made so that the new data appears
+
+- delete button
+- edit button 
+
+- get the website hosted then use login details
