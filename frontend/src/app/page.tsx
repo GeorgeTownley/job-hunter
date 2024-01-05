@@ -40,7 +40,7 @@ export default function Home() {
   // Call this function when the Edit button is clicked
   const handleEdit = (application: Application) => {
     setEditingId(application.id);
-    setEditableData(application); // Set the application data to editableData state
+    setEditableData(application); // Load the current application data for editing
   };
 
   // This handleChange is for when you're editing an application
@@ -84,6 +84,31 @@ export default function Home() {
     } catch (error: unknown) {
       // Handle or log the error
       console.error("Error submitting form:", error);
+    }
+  };
+
+  const handleSave = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:3001/applications/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(editableData),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      // Update the applications state to reflect the changes
+      const updatedApplications = applications.map((app) =>
+        app.id === id ? { ...editableData, id: id } : app
+      );
+      setApplications(updatedApplications);
+
+      // Reset editing state
+      setEditingId(null);
+    } catch (error) {
+      console.error("Error updating application:", error);
     }
   };
 
