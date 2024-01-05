@@ -45,7 +45,10 @@ export default function Home() {
 
   // This handleChange is for when you're editing an application
   const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditableData({ ...editableData, [e.target.name]: e.target.value });
+    // Delay state update until onBlur event
+    if (e.type === "blur" || e.target.name !== "date_applied") {
+      setEditableData({ ...editableData, [e.target.name]: e.target.value });
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,12 +78,6 @@ export default function Home() {
         work_type: "",
         pay: "",
       });
-
-      // Change the key to force re-render of the form
-      setFormKey(Date.now());
-
-      // Here you can also provide feedback to the user or refresh the data displayed
-      // ...
     } catch (error: unknown) {
       // Handle or log the error
       console.error("Error submitting form:", error);
@@ -178,7 +175,7 @@ export default function Home() {
             className="px-4 py-2 border rounded-md"
           />
           <input
-            type="text"
+            type="number"
             name="pay"
             value={formData.pay}
             onChange={handleChange}
@@ -235,9 +232,10 @@ export default function Home() {
                 {editingId === application.id ? (
                   <input
                     type="date"
-                    name="Date Applied"
+                    name="date_applied"
                     value={editableData.date_applied}
                     onChange={handleEditChange}
+                    onBlur={handleEditChange}
                   />
                 ) : (
                   application.date_applied
@@ -282,7 +280,7 @@ export default function Home() {
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 {editingId === application.id ? (
                   <input
-                    type="text"
+                    type="number"
                     name="pay"
                     value={editableData.pay}
                     onChange={handleEditChange}
@@ -292,10 +290,15 @@ export default function Home() {
                 )}
               </td>
               <td>
-                <button onClick={() => handleSave(application.id)}>Save</button>
-              </td>
-              <td>
-                <button onClick={() => handleEdit(application)}>Edit</button>
+                {editingId === application.id ? (
+                  // Render the Save button only if we're in edit mode for this row
+                  <button onClick={() => handleSave(application.id)}>
+                    Save
+                  </button>
+                ) : (
+                  // Otherwise, render the Edit button which is always visible
+                  <button onClick={() => handleEdit(application)}>Edit</button>
+                )}
               </td>
             </tr>
           ))}
