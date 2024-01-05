@@ -292,6 +292,9 @@ export default function Home() {
                 )}
               </td>
               <td>
+                <button onClick={() => handleSave(application.id)}>Save</button>
+              </td>
+              <td>
                 <button onClick={() => handleEdit(application)}>Edit</button>
               </td>
             </tr>
