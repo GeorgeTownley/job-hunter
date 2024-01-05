@@ -204,133 +204,137 @@ export default function Home() {
           Submit
         </button>
       </form>
-      <table className="min-w-full divide-y divide-gray-200 shadow-sm table-fixed w-full">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Employer
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Date Applied
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Platform
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Progress
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Work Type
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Pay
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
-          {applications.map((application) => (
-            <tr key={application.id}>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {editingId === application.id ? (
-                  <input
-                    type="text"
-                    name="employer"
-                    value={editableData.employer}
-                    onChange={handleEditChange}
-                  />
-                ) : (
-                  application.employer
-                )}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {editingId === application.id ? (
-                  <input
-                    type="date"
-                    name="date_applied"
-                    value={editableData.date_applied}
-                    onChange={handleEditChange}
-                    onBlur={handleEditChange}
-                  />
-                ) : (
-                  application.date_applied
-                )}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {editingId === application.id ? (
-                  <input
-                    type="text"
-                    name="platform"
-                    value={editableData.platform}
-                    onChange={handleEditChange}
-                  />
-                ) : (
-                  application.platform
-                )}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {editingId === application.id ? (
-                  <input
-                    type="text"
-                    name="progress"
-                    value={editableData.progress}
-                    onChange={handleEditChange}
-                  />
-                ) : (
-                  application.progress
-                )}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {editingId === application.id ? (
-                  <input
-                    type="text"
-                    name="work_type"
-                    value={editableData.work_type}
-                    onChange={handleEditChange}
-                  />
-                ) : (
-                  application.work_type
-                )}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {editingId === application.id ? (
-                  <input
-                    type="number"
-                    name="pay"
-                    value={editableData.pay}
-                    onChange={handleEditChange}
-                  />
-                ) : (
-                  new Intl.NumberFormat("en-US").format(application.pay)
-                )}
-              </td>
-              <td>
-                {editingId === application.id ? (
-                  // Render the Save button only if we're in edit mode for this row
-                  <button onClick={() => handleSave(application.id)}>
-                    Save
-                  </button>
-                ) : (
-                  // Otherwise, render the Edit button which is always visible
-                  <button onClick={() => handleEdit(application)}>Edit</button>
-                )}
-              </td>
-              <td>
-                {deletingId === application.id ? (
-                  <button onClick={() => handleConfirmDelete(application.id)}>
-                    Confirm
-                  </button>
-                ) : (
-                  <button onClick={() => setDeletingId(application.id)}>
-                    Delete
-                  </button>
-                )}
-              </td>
+      <div className="w-4/5 mx-auto">
+        <table className="min-w-full divide-y divide-gray-200 shadow-sm table-fixed w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Employer
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Date Applied
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Platform
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Progress
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Work Type
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Pay
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {applications.map((application) => (
+              <tr key={application.id}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {editingId === application.id ? (
+                    <input
+                      type="text"
+                      name="employer"
+                      value={editableData.employer}
+                      onChange={handleEditChange}
+                    />
+                  ) : (
+                    application.employer
+                  )}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {editingId === application.id ? (
+                    <input
+                      type="date"
+                      name="date_applied"
+                      value={editableData.date_applied}
+                      onChange={handleEditChange}
+                      onBlur={handleEditChange}
+                    />
+                  ) : (
+                    application.date_applied
+                  )}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {editingId === application.id ? (
+                    <input
+                      type="text"
+                      name="platform"
+                      value={editableData.platform}
+                      onChange={handleEditChange}
+                    />
+                  ) : (
+                    application.platform
+                  )}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {editingId === application.id ? (
+                    <input
+                      type="text"
+                      name="progress"
+                      value={editableData.progress}
+                      onChange={handleEditChange}
+                    />
+                  ) : (
+                    application.progress
+                  )}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {editingId === application.id ? (
+                    <input
+                      type="text"
+                      name="work_type"
+                      value={editableData.work_type}
+                      onChange={handleEditChange}
+                    />
+                  ) : (
+                    application.work_type
+                  )}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {editingId === application.id ? (
+                    <input
+                      type="number"
+                      name="pay"
+                      value={editableData.pay}
+                      onChange={handleEditChange}
+                    />
+                  ) : (
+                    new Intl.NumberFormat("en-US").format(application.pay)
+                  )}
+                </td>
+                <td>
+                  {editingId === application.id ? (
+                    // Render the Save button only if we're in edit mode for this row
+                    <button onClick={() => handleSave(application.id)}>
+                      Save
+                    </button>
+                  ) : (
+                    // Otherwise, render the Edit button which is always visible
+                    <button onClick={() => handleEdit(application)}>
+                      Edit
+                    </button>
+                  )}
+                </td>
+                <td>
+                  {deletingId === application.id ? (
+                    <button onClick={() => handleConfirmDelete(application.id)}>
+                      Confirm
+                    </button>
+                  ) : (
+                    <button onClick={() => setDeletingId(application.id)}>
+                      Delete
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
