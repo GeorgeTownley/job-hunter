@@ -307,8 +307,9 @@ export default function Home() {
                     new Intl.NumberFormat("en-US").format(application.pay)
                   )}
                 </td>
+
                 <td>
-                  <div className="flex g-2 justify-center items-center">
+                  <div className="flex px-4 py-2 justify-center items-center space-x-2">
                     {editingId === application.id ? (
                       // Render the Save button only if we're in edit mode for this row
                       <button
