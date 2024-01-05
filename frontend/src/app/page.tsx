@@ -33,8 +33,6 @@ export default function Home() {
 
   const [applications, setApplications] = useState<Application[]>([]);
 
-  const [formKey, setFormKey] = useState(Date.now());
-
   const [editingId, setEditingId] = useState<number | null>(null);
 
   // Call this function when the Edit button is clicked
@@ -128,11 +126,7 @@ export default function Home() {
 
   return (
     <div>
-      <form
-        key={formKey}
-        onSubmit={handleSubmit}
-        className="max-w-md mx-auto my-8"
-      >
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto my-8">
         <div className="flex flex-col space-y-4">
           <input
             type="text"
