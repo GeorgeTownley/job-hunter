@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 type Application = {
   id: number;
@@ -36,27 +36,6 @@ export default function Home() {
   const [applications, setApplications] = useState<Application[]>([]);
 
   const [editingId, setEditingId] = useState<number | null>(null);
-
-  const deleteRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      // Cast event.target to Node type
-      if (
-        deleteRef.current &&
-        !deleteRef.current.contains(event.target as Node)
-      ) {
-        setDeletingId(null);
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   // Call this function when the Edit button is clicked
   const handleEdit = (application: Application) => {
@@ -357,14 +336,6 @@ export default function Home() {
                       </button>
                     ) : (
                       <button
-                        ref={deleteRef}
-                        onBlur={() => {
-                          // Check if the currently focused element is not the confirm button
-                          // If so, reset the deletingId state
-                          if (document.activeElement !== deleteRef.current) {
-                            setDeletingId(null);
-                          }
-                        }}
                         className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700"
                         onClick={() => setDeletingId(application.id)}
                       >
