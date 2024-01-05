@@ -21,9 +21,21 @@ export default function Home() {
     pay: "",
   });
 
+  const [editableData, setEditableData] = useState<Application>({
+    id: 0,
+    employer: "",
+    date_applied: "",
+    platform: "",
+    progress: "",
+    work_type: "",
+    pay: 0,
+  });
+
   const [applications, setApplications] = useState<Application[]>([]);
 
   const [formKey, setFormKey] = useState(Date.now());
+
+  const [editingId, setEditingId] = useState<number | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -99,7 +111,7 @@ export default function Home() {
           />
           <input
             type="date"
-            name="date_a  pplied"
+            name="date_applied"
             value={formData.date_applied}
             onChange={handleChange}
             placeholder="Date Applied"
@@ -172,22 +184,81 @@ export default function Home() {
           {applications.map((application) => (
             <tr key={application.id}>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {application.employer}
+                {editingId === application.id ? (
+                  <input
+                    type="text"
+                    name="employer"
+                    value={editableData.employer}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  application.employer
+                )}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {application.date_applied}
+                {editingId === application.id ? (
+                  <input
+                    type="date"
+                    name="Date Applied"
+                    value={editableData.date_applied}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  application.date_applied
+                )}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {application.platform}
+                {editingId === application.id ? (
+                  <input
+                    type="text"
+                    name="platform"
+                    value={editableData.platform}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  application.platform
+                )}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {application.progress}
+                {editingId === application.id ? (
+                  <input
+                    type="text"
+                    name="progress"
+                    value={editableData.progress}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  application.progress
+                )}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {application.work_type}
+                {editingId === application.id ? (
+                  <input
+                    type="text"
+                    name="work_type"
+                    value={editableData.work_type}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  application.work_type
+                )}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                {new Intl.NumberFormat("en-US").format(application.pay)}
+                {editingId === application.id ? (
+                  <input
+                    type="text"
+                    name="pay"
+                    value={editableData.pay}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  new Intl.NumberFormat("en-US").format(application.pay)
+                )}
+              </td>
+              <td>
+                <button onClick={() => setEditingId(application.id)}>
+                  Edit
+                </button>
               </td>
             </tr>
           ))}
