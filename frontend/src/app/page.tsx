@@ -306,26 +306,38 @@ export default function Home() {
                     new Intl.NumberFormat("en-US").format(application.pay)
                   )}
                 </td>
-                <td>
+                <td className="flex flex-row flex-nowrap  justify-center items-center space-x-2">
                   {editingId === application.id ? (
                     // Render the Save button only if we're in edit mode for this row
-                    <button onClick={() => handleSave(application.id)}>
+                    <button
+                      className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700"
+                      onClick={() => handleSave(application.id)}
+                    >
                       Save
                     </button>
                   ) : (
                     // Otherwise, render the Edit button which is always visible
-                    <button onClick={() => handleEdit(application)}>
+                    <button
+                      className="px-4 py-2 m-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-700"
+                      onClick={() => handleEdit(application)}
+                    >
                       Edit
                     </button>
                   )}
                 </td>
                 <td>
                   {deletingId === application.id ? (
-                    <button onClick={() => handleConfirmDelete(application.id)}>
+                    <button
+                      className="px-4 py-2 mt-2 bg-red-500 text-white rounded-md hover:bg-red-700"
+                      onClick={() => handleConfirmDelete(application.id)}
+                    >
                       Confirm
                     </button>
                   ) : (
-                    <button onClick={() => setDeletingId(application.id)}>
+                    <button
+                      className="px-4 py-2 mt-2 bg-red-500 text-white rounded-md hover:bg-red-700"
+                      onClick={() => setDeletingId(application.id)}
+                    >
                       Delete
                     </button>
                   )}
