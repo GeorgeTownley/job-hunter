@@ -227,7 +227,7 @@ export default function Home() {
                 Pay
               </th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+              <th></th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -306,41 +306,45 @@ export default function Home() {
                     new Intl.NumberFormat("en-US").format(application.pay)
                   )}
                 </td>
-                <td className="flex flex-row flex-nowrap  justify-center items-center space-x-2">
-                  {editingId === application.id ? (
-                    // Render the Save button only if we're in edit mode for this row
-                    <button
-                      className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700"
-                      onClick={() => handleSave(application.id)}
-                    >
-                      Save
-                    </button>
-                  ) : (
-                    // Otherwise, render the Edit button which is always visible
-                    <button
-                      className="px-4 py-2 m-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-700"
-                      onClick={() => handleEdit(application)}
-                    >
-                      Edit
-                    </button>
-                  )}
+                <td>
+                  <div className="flex justify-center items-center">
+                    {editingId === application.id ? (
+                      // Render the Save button only if we're in edit mode for this row
+                      <button
+                        className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-700"
+                        onClick={() => handleSave(application.id)}
+                      >
+                        Save
+                      </button>
+                    ) : (
+                      // Otherwise, render the Edit button which is always visible
+                      <button
+                        className="px-4 py-2  bg-yellow-500 text-white rounded-md hover:bg-yellow-700"
+                        onClick={() => handleEdit(application)}
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </div>
                 </td>
                 <td>
-                  {deletingId === application.id ? (
-                    <button
-                      className="px-4 py-2 mt-2 bg-red-500 text-white rounded-md hover:bg-red-700"
-                      onClick={() => handleConfirmDelete(application.id)}
-                    >
-                      Confirm
-                    </button>
-                  ) : (
-                    <button
-                      className="px-4 py-2 mt-2 bg-red-500 text-white rounded-md hover:bg-red-700"
-                      onClick={() => setDeletingId(application.id)}
-                    >
-                      Delete
-                    </button>
-                  )}
+                  <div className="flex justify-center items-center">
+                    {deletingId === application.id ? (
+                      <button
+                        className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700"
+                        onClick={() => handleConfirmDelete(application.id)}
+                      >
+                        Confirm
+                      </button>
+                    ) : (
+                      <button
+                        className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-700"
+                        onClick={() => setDeletingId(application.id)}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}
