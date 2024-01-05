@@ -56,3 +56,23 @@ app.post("/applications", (req, res) => {
     }
   );
 });
+
+app.put("/applications/:id", (req, res) => {
+  const { id } = req.params;
+  const { employer, date_applied, platform, progress, work_type, pay } =
+    req.body;
+
+  const sql = `UPDATE job_applications SET employer = ?, date_applied = ?, platform = ?, progress = ?, work_type = ?, pay = ? WHERE id = ?`;
+
+  db.run(
+    sql,
+    [employer, date_applied, platform, progress, work_type, pay, id],
+    function (err) {
+      if (err) {
+        res.status(500).json({ error: err.message });
+        return;
+      }
+      res.json({ message: "Updated successfully", rowsUpdated: this.changes });
+    }
+  );
+});
