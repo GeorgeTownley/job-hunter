@@ -8,6 +8,15 @@ to do
 
 - finish centre aligning data in cells + add some padding to the actions cells
 
-- add login screen 
+- convert frontend into components
+- custom hooks? for all the use state logic
+
+- add login screen (next auth?)
+
+- work type (dropdown - remote, hybrid, office)
+
+- modal for confirming deletes (callback - set show modal)
+
+- form validation (all fields filled)
 
 - get the website hosted then use login details
