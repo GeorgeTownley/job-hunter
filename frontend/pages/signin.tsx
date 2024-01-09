@@ -1,12 +1,24 @@
-import { signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 
-const SignIn = () => {
+const SignInPage = () => {
+  const { data: session } = useSession();
+
+  if (session) {
+    console.log("Current user:", session.user);
+    // Redirect the user to the home page or display a message
+  }
+
   return (
     <div>
-      <h1>Sign In</h1>
-      <button onClick={() => signIn("github")}>Sign in with GitHub</button>
+      <button
+        onClick={() =>
+          signIn("github", { callbackUrl: "http://localhost:3000" })
+        }
+      >
+        Sign in with GitHub
+      </button>
     </div>
   );
 };
 
-export default SignIn;
+export default SignInPage;
