@@ -20,3 +20,5 @@ to do
 - form validation (all fields filled)
 
 - get the website hosted then use login details
+
+- next.config.js - lets you set redirects (research)

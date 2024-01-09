@@ -19,13 +19,13 @@ export default NextAuth({
     }),
   ],
   pages: {
-    signIn: "/signin", // This should be the path to your custom sign-in page, relative to the 'pages' directory
+    signIn: "/", // This should be the path to your custom sign-in page, relative to the 'pages' directory
   },
   callbacks: {
     // The redirect callback expects an object with `url` and `baseUrl` properties
     redirect: async ({ url, baseUrl }) => {
       // You can perform additional checks here if needed
-      return baseUrl; // This should redirect to the root of your site after login
+      return `${baseUrl}/homepage`; // This should redirect to the root of your site after login
     },
   },
 });
