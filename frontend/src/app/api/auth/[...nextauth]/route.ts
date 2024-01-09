@@ -11,21 +11,21 @@ if (!GITHUB_ID || !GITHUB_SECRET) {
   );
 }
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     GitHubProvider({
       clientId: GITHUB_ID, // Use the asserted variables
       clientSecret: GITHUB_SECRET,
     }),
   ],
-  pages: {
-    signIn: "/", // This should be the path to your custom sign-in page, relative to the 'pages' directory
-  },
   callbacks: {
     // The redirect callback expects an object with `url` and `baseUrl` properties
-    redirect: async ({ url, baseUrl }) => {
+    redirect: async ({ url, baseUrl }: { url: any; baseUrl: any }) => {
       // You can perform additional checks here if needed
       return `${baseUrl}/homepage`; // This should redirect to the root of your site after login
     },
   },
-});
+};
+
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

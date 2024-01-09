@@ -13,9 +13,10 @@ export default function Home() {
   return (
     <div>
       <button
-        onClick={() =>
-          signIn("github", { callbackUrl: "http://localhost:3000/homepage" })
-        }
+        onClick={() => {
+          console.log("clicked!");
+          signIn("github", { callbackUrl: "http://localhost:3000/homepage" });
+        }}
       >
         Sign in with GitHub
       </button>
