@@ -1,0 +1,5 @@
+file names
+page and route = all lowercase (becasue not components)
+if two words (hyphenated) 
+components = PascalCase
+anything else = camelCase
