@@ -13,16 +13,16 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white shadow">
-      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between h-16">
-          {/* Left side content of navbar */}
+      <div className="w-4/5 mx-auto sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
           <div className="flex-1 flex items-center justify-start">
             <div className="flex-shrink-0">
               <img
-                className="h-8 w-8"
+                className="h-5 w-5 mr-10"
                 src="/assets/bow_arrow.png"
                 alt="Bow & arrow logo"
               />
+              <span className="flex ml-3 text-xl font-bold">JOB HUNTER</span>
             </div>
           </div>
           {session?.user && (
