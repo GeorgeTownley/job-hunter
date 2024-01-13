@@ -151,7 +151,7 @@ export default function HomePage() {
       <div>
         <form
           onSubmit={handleSubmit}
-          className="w-4/5 mx-auto my-8 bg-indigo-600 p-4 rounded-md"
+          className="w-4/5 mx-auto my-8 bg-gradient-to-b from-green-600 to-green-800 p-4 rounded-md"
         >
           <div className="flex flex-row items-center space-x-4">
             <input
@@ -205,7 +205,7 @@ export default function HomePage() {
 
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md border-2 border-white hover:bg-indigo-700 focus:outline-1  focus:ring-2 focus:ring-offset-2 flex-grow"
+              className="px-4 py-2 bg-transparent hover:bg-green-800/50 text-white rounded-md border-2 border-white focus:outline-1  focus:ring-2 focus:ring-offset-2 flex-grow"
             >
               Submit
             </button>
