@@ -18,12 +18,13 @@ const Navbar = () => {
           {/* Left side content of navbar */}
           <div className="flex-1 flex items-center justify-start">
             <div className="flex-shrink-0">
-              <img className="h-8 w-8" src="/your-logo.png" alt="Your Logo" />
+              <img
+                className="h-8 w-8"
+                src="/assets/bow_arrow.png"
+                alt="Bow & arrow logo"
+              />
             </div>
-            {/* Additional content can go here */}
           </div>
-
-          {/* Right side content of navbar */}
           {session?.user && (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="flex items-center">
