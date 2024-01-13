@@ -22,7 +22,7 @@ export const authOptions = {
     // The redirect callback expects an object with `url` and `baseUrl` properties
     redirect: async ({ url, baseUrl }: { url: any; baseUrl: any }) => {
       // You can perform additional checks here if needed
-      return `${baseUrl}/homepage`; // This should redirect to the root of your site after login
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
 };
