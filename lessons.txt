@@ -3,3 +3,9 @@ page and route = all lowercase (becasue not components)
 if two words (hyphenated) 
 components = PascalCase
 anything else = camelCase
+
+
+
+what does navbar need a fragment around it when added to homepage?
+
+please explain why this is a thing:       return url.startsWith(baseUrl) ? url : baseUrl; (in route.ts)
