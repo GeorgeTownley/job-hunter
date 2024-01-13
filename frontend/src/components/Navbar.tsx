@@ -22,9 +22,14 @@ const Navbar = () => {
                 src="/assets/bow_arrow.png"
                 alt="Bow & arrow logo"
               />
-              <span className="flex ml-3 text-xl font-bold">JOB HUNTER</span>
+              <span className="flex ml-3 text-xl font-medium uppercase tracking-wider">
+                JOB HUNTER
+              </span>
             </div>
           </div>
+          <span className="text-xs font-medium uppercase tracking-wider">
+            {userName}
+          </span>
           {session?.user && (
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="flex items-center">
@@ -33,6 +38,7 @@ const Navbar = () => {
                   src={userProfileImage}
                   alt={userName}
                 />
+
                 <button
                   onClick={handleLogout}
                   className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300"
