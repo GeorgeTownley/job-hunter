@@ -16,9 +16,9 @@ const Navbar = () => {
       <div className="w-4/5 mx-auto sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-1 flex items-center justify-start">
-            <div className="flex-shrink-0">
+            <div className="flex items-center">
               <img
-                className="h-5 w-5 mr-10"
+                className="h-5 w-5 mr-1"
                 src="/assets/bow_arrow.png"
                 alt="Bow & arrow logo"
               />
