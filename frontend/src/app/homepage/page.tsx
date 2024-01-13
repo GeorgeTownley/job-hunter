@@ -149,15 +149,18 @@ export default function HomePage() {
     <>
       <Navbar />
       <div>
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto my-8">
-          <div className="flex flex-col space-y-4">
+        <form
+          onSubmit={handleSubmit}
+          className="w-4/5 mx-auto my-8 bg-indigo-600 p-4 rounded-md"
+        >
+          <div className="flex flex-row items-center space-x-4">
             <input
               type="text"
               name="employer"
               value={formData.employer}
               onChange={handleChange}
               placeholder="Employer"
-              className="px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md flex-grow"
             />
             <input
               type="date"
@@ -165,7 +168,7 @@ export default function HomePage() {
               value={formData.date_applied}
               onChange={handleChange}
               placeholder="Date Applied"
-              className="px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md flex-grow"
             />
             <input
               type="text"
@@ -173,7 +176,7 @@ export default function HomePage() {
               value={formData.platform}
               onChange={handleChange}
               placeholder="Platform"
-              className="px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md flex-grow"
             />
             <input
               type="text"
@@ -181,7 +184,7 @@ export default function HomePage() {
               value={formData.progress}
               onChange={handleChange}
               placeholder="Progress"
-              className="px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md flex-grow"
             />
             <input
               type="text"
@@ -189,7 +192,7 @@ export default function HomePage() {
               value={formData.work_type}
               onChange={handleChange}
               placeholder="Work type"
-              className="px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md flex-grow"
             />
             <input
               type="number"
@@ -197,15 +200,16 @@ export default function HomePage() {
               value={formData.pay}
               onChange={handleChange}
               placeholder="Pay"
-              className="px-4 py-2 border rounded-md"
+              className="px-4 py-2 border rounded-md flex-grow"
             />
+
+            <button
+              type="submit"
+              className="px-4 py-2 bg-indigo-600 text-white rounded-md border-2 border-white hover:bg-indigo-700 focus:outline-1  focus:ring-2 focus:ring-offset-2 flex-grow"
+            >
+              Submit
+            </button>
           </div>
-          <button
-            type="submit"
-            className="px-4 py-2  mt-4   bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-          >
-            Submit
-          </button>
         </form>
         <div className="w-4/5 mx-auto">
           <table className="min-w-full divide-y divide-gray-200 shadow-sm table-fixed w-full">

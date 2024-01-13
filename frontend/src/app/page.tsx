@@ -14,7 +14,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
       <div className="max-w-md w-full space-y-8 p-10 bg-white shadow-lg rounded-xl">
         {/* Logo and App Name */}
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center transform scale-150">
           <img
             className="h-5 w-5 mr-2"
             src="/assets/bow_arrow.png"
