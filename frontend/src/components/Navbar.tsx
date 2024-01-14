@@ -22,7 +22,7 @@ const Navbar = () => {
                 src="/assets/bow_arrow.png"
                 alt="Bow & arrow logo"
               />
-              <span className="flex ml-3 text-xl font-medium uppercase tracking-wider">
+              <span className="flex ml-2 text-xl font-medium uppercase tracking-wider">
                 JOB HUNTER
               </span>
             </div>
