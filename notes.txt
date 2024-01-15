@@ -22,3 +22,5 @@ to do
 - get the website hosted then use login details
 
 - next.config.js - lets you set redirects (research)
+
+- tailwind media queries 
