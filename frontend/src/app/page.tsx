@@ -102,6 +102,17 @@ export default function Home() {
             </button>
           </div>
         </form>
+        <div className="mt-6">
+          <p className="text-center text-sm text-gray-600">
+            Don't have an account?{" "}
+            <a
+              href="/register"
+              className="font-medium text-green-600 hover:text-green-500"
+            >
+              Register
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
