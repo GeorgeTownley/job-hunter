@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./database");
+const bcrypt = require("bcrypt");
 
+const saltRounds = 10;
 const app = express();
 const port = 3001;
 
@@ -97,3 +99,46 @@ app.delete("/applications/:id", (req, res) => {
 // -----------------------
 // User Authentication Routes
 // -----------------------
+
+// Registration route
+app.post("/register", async (req, res) => {
+  // Destructure the properties from req.body
+  const { email, username, password } = req.body;
+
+  // Check if the email or username already exists
+  const checkUserSql = "SELECT * FROM users WHERE email = ? OR username = ?";
+  db.get(checkUserSql, [email, username], async (err, row) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+
+    if (row) {
+      res
+        .status(409)
+        .json({ error: "User already exists with this email or username" });
+      return;
+    }
+
+    try {
+      // Hash the password before storing it
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+      // Prepare the SQL query
+      const sql =
+        "INSERT INTO users (email, username, password) VALUES (?, ?, ?)";
+
+      // Execute the SQL query
+      db.run(sql, [email, username, hashedPassword], function (err) {
+        if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+        }
+        // If no error, send the newly created user ID in the response
+        res.status(201).json({ success: "User created", id: this.lastID });
+      });
+    } catch (hashError) {
+      res.status(500).json({ error: hashError.message });
+    }
+  });
+});
