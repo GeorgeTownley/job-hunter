@@ -3,10 +3,10 @@ const cors = require("cors");
 const db = require("./database");
 
 const app = express();
-const port = 3001; // Has to be on a different port than the react front end
+const port = 3001;
 
 app.use(cors());
-app.use(express.json()); // For parsing application/json
+app.use(express.json());
 
 app.get("/applications", (req, res) => {
   res.send("Hello from the backend!");
@@ -16,7 +16,10 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-// GET route for /applications/all
+// -----------------------
+// Job Applications Routes
+// -----------------------
+
 app.get("/applications/all", (req, res) => {
   const sql = "SELECT * FROM job_applications";
   db.all(sql, [], (err, rows) => {
@@ -90,3 +93,7 @@ app.delete("/applications/:id", (req, res) => {
     res.json({ message: "Deleted successfully", rowsDeleted: this.changes });
   });
 });
+
+// -----------------------
+// User Authentication Routes
+// -----------------------
