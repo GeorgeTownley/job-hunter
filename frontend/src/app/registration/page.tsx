@@ -8,6 +8,7 @@ export default function Registration() {
 
   const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log("Registering with:", { email, username, password }); // Log the state variables
     try {
       const response = await fetch("http://localhost:3001/register", {
         method: "POST",
@@ -16,6 +17,9 @@ export default function Registration() {
         },
         body: JSON.stringify({ email, username, password }),
       });
+
+      console.log("Response received:", response); // Log the response object
+
       if (response.ok) {
         const data = await response.json();
         console.log("User created with ID:", data.id);
@@ -48,7 +52,11 @@ export default function Registration() {
             Create your account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form
+          className="mt-8 space-y-6"
+          onSubmit={handleRegister}
+          method="POST"
+        >
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email" className="sr-only">
