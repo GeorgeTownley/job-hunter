@@ -106,7 +106,7 @@ export default function Home() {
           <p className="text-center text-sm text-gray-600">
             Don't have an account?{" "}
             <a
-              href="/register"
+              href="/registration"
               className="font-medium text-green-600 hover:text-green-500"
             >
               Register
