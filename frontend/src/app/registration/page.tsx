@@ -79,7 +79,7 @@ export default function Registration() {
           <p className="text-center text-sm text-gray-600">
             Already have an account?{" "}
             <a
-              href="/signin" // Replace with your sign-in page route
+              href="/"
               className="font-medium text-green-600 hover:text-green-500"
             >
               Sign in
