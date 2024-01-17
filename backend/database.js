@@ -28,4 +28,19 @@ db.run(
   }
 );
 
+db.run(
+  `CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL UNIQUE,
+  username TEXT NOT NULL UNIQUE,
+  password TEXT NOT NULL
+)`,
+  (err) => {
+    if (err) {
+      console.error(err.message);
+    }
+    console.log("Created the users table.");
+  }
+);
+
 module.exports = db;
