@@ -7,7 +7,6 @@ const Navbar = () => {
     await signOut({ callbackUrl: "/" });
   };
 
-  // Use optional chaining and provide fallback values
   const userProfileImage = session?.user?.image ?? "/default-profile.png";
   const userName = session?.user?.name ?? "User";
 
