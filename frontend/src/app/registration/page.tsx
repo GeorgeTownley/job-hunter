@@ -1,9 +1,33 @@
 `use client`;
-import React from "react";
-// Additional imports if necessary
+import React, { useState, useEffect } from "react";
 
 export default function Registration() {
-  // Add your form submission logic here
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3001/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, username, password }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log("User created with ID:", data.id);
+        // Redirect to sign-in page or dashboard
+      } else {
+        // Handle errors
+        console.error("Registration failed");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
