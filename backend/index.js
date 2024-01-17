@@ -142,3 +142,15 @@ app.post("/register", async (req, res) => {
     }
   });
 });
+
+// INSECURE ROUTE FOR TESTING ONLY. MAKE SURE YOU DELETE THIS
+app.get("/users", (req, res) => {
+  const sql = "SELECT id, username, password FROM users";
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
