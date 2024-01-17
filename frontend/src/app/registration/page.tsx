@@ -21,11 +21,14 @@ export default function Registration() {
       console.log("Response received:", response); // Log the response object
 
       if (response.ok) {
+        setEmail(""); // Clear fields
+        setUsername("");
+        setPassword("");
         const data = await response.json();
         console.log("User created with ID:", data.id);
-        // Redirect to sign-in page or dashboard
+        window.location.href = "/"; // Redirect to sign-in page
+        alert(`User with username ${username} has been created`); // Popup message
       } else {
-        // Handle errors
         console.error("Registration failed");
       }
     } catch (error) {
