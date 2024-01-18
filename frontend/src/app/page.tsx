@@ -23,8 +23,7 @@ export default function Home() {
       });
 
       if (response.ok) {
-        // Handle successful login, e.g., redirect to a dashboard
-        window.location.href = "/dashboard";
+        window.location.href = "/homepage";
       } else {
         // Handle errors, e.g., show an error message
         alert("Invalid username or password.");
