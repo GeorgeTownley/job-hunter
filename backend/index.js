@@ -154,3 +154,30 @@ app.get("/users", (req, res) => {
     res.json(rows);
   });
 });
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  const sql = "SELECT * FROM users WHERE username = ?";
+  db.get(sql, [username], (err, user) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+
+    if (user) {
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result) {
+          // Passwords match, handle successful login
+          res.json({ success: "Logged in successfully" });
+        } else {
+          // Passwords don't match
+          res.status(401).json({ error: "Invalid credentials" });
+        }
+      });
+    } else {
+      // User not found
+      res.status(404).json({ error: "User not found" });
+    }
+  });
+});
