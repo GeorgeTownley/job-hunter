@@ -4,11 +4,35 @@ import { useSession, signIn } from "next-auth/react";
 
 export default function Home() {
   const { data: session } = useSession();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   if (session) {
     console.log("Current user:", session.user);
     // Redirect the user to the home page or display a message
   }
+
+  const handleSignIn = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }), // Replace with your state variables
+      });
+
+      if (response.ok) {
+        // Handle successful login, e.g., redirect to a dashboard
+        window.location.href = "/dashboard";
+      } else {
+        // Handle errors, e.g., show an error message
+        alert("Invalid username or password.");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center">
@@ -42,6 +66,8 @@ export default function Home() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-600 focus:border-green-600 focus:z-10 sm:text-sm"
                 placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div>
@@ -55,6 +81,8 @@ export default function Home() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2.5 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-600 focus:border-green-600 focus:z-10 sm:text-sm"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
@@ -71,6 +99,7 @@ export default function Home() {
           <div className="flex gap-4 mt-6">
             <button
               type="submit"
+              onClick={handleSignIn}
               className="w-1/2 flex justify-center items-center py-2.5 px-4 text-sm font-medium rounded-lg text-white bg-gradient-to-b from-green-600 to-green-800 hover:brightness-90 "
             >
               Sign in
