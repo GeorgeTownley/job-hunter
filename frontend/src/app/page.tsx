@@ -12,25 +12,9 @@ export default function Home() {
     // Redirect the user to the home page or display a message
   }
 
-  const handleSignIn = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }), // Replace with your state variables
-      });
-
-      if (response.ok) {
-        window.location.href = "/homepage";
-      } else {
-        // Handle errors, e.g., show an error message
-        alert("Invalid username or password.");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-    }
+  const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signIn("credentials", { username, password, callbackUrl: "/homepage" });
   };
 
   return (
@@ -51,7 +35,7 @@ export default function Home() {
             Sign in to your account
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" onSubmit={handleSignIn}>
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -98,7 +82,6 @@ export default function Home() {
           <div className="flex gap-4 mt-6">
             <button
               type="submit"
-              onClick={handleSignIn}
               className="w-1/2 flex justify-center items-center py-2.5 px-4 text-sm font-medium rounded-lg text-white bg-gradient-to-b from-green-600 to-green-800 hover:brightness-90 "
             >
               Sign in
