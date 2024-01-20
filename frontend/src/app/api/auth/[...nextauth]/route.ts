@@ -1,31 +1,68 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
+import Providers from "next-auth/providers";
 import GitHubProvider from "next-auth/providers/github";
+import bcrypt from "bcrypt";
+import sqlite3 from "sqlite3";
+import { open } from "sqlite";
 
-// Assert that the environment variables are set
 const GITHUB_ID = process.env.GITHUB_ID!;
 const GITHUB_SECRET = process.env.GITHUB_SECRET!;
 
-if (!GITHUB_ID || !GITHUB_SECRET) {
-  throw new Error(
-    "Please define the GITHUB_ID and GITHUB_SECRET environment variables"
-  );
+// Define the structure of your user object
+interface User {
+  id: number;
+  username: string;
+  password: string;
+  email: string;
 }
 
-export const authOptions = {
+interface Credentials {
+  username: string;
+  password: string;
+}
+
+// Open a connection to your SQLite database
+const dbPromise = open({
+  filename: "../backend/jobTrackerDB.sqlite",
+  driver: sqlite3.Database,
+});
+
+export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
-      clientId: GITHUB_ID, // Use the asserted variables
+      clientId: GITHUB_ID,
       clientSecret: GITHUB_SECRET,
+    }),
+    Providers.Credentials({
+      name: "Credentials",
+      credentials: {
+        username: { label: "Username", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      authorize: async (credentials: Credentials) => {
+        const db = await dbPromise;
+        const user: User | null = await db.get(
+          "SELECT * FROM users WHERE username = ?",
+          credentials?.username
+        );
+
+        if (
+          user &&
+          credentials?.password &&
+          (await bcrypt.compare(credentials.password, user.password))
+        ) {
+          return { id: user.id, name: user.username, email: user.email };
+        } else {
+          return null;
+        }
+      },
     }),
   ],
   callbacks: {
-    // The redirect callback expects an object with `url` and `baseUrl` properties
-    redirect: async ({ url, baseUrl }: { url: any; baseUrl: any }) => {
-      // You can perform additional checks here if needed
+    redirect: async ({ url, baseUrl }) => {
       return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
 };
 
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export default NextAuth(authOptions);
