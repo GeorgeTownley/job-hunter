@@ -2,6 +2,7 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider, {
   CredentialInput,
 } from "next-auth/providers/credentials";
+import { NextApiRequest, NextApiResponse } from "next";
 import GitHubProvider from "next-auth/providers/github";
 import bcrypt from "bcrypt";
 import sqlite3 from "sqlite3";
@@ -64,4 +65,9 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export default NextAuth(authOptions);
+export const initAuth = (req: NextApiRequest, res: NextApiResponse) =>
+  NextAuth(req, res, authOptions);
+export const GET = (req: NextApiRequest, res: NextApiResponse) =>
+  initAuth(req, res);
+export const POST = (req: NextApiRequest, res: NextApiResponse) =>
+  initAuth(req, res);

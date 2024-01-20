@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { data: session } = useSession();
@@ -12,9 +13,12 @@ export default function Home() {
     // Redirect the user to the home page or display a message
   }
 
+  const router = useRouter();
+
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signIn("credentials", { username, password, callbackUrl: "/homepage" });
+    router.replace("homepage");
   };
 
   return (
