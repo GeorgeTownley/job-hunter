@@ -13,12 +13,9 @@ export default function Home() {
     // Redirect the user to the home page or display a message
   }
 
-  const router = useRouter();
-
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signIn("credentials", { username, password, callbackUrl: "/homepage" });
-    router.replace("homepage");
   };
 
   return (
