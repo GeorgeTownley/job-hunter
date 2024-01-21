@@ -17,30 +17,30 @@ const Navbar = () => {
           <div className="flex-1 flex items-center justify-start">
             <div className="flex items-center">
               <img
-                className="h-5 w-5 mr-1"
+                className="scale-50 sm:scale-100 h-8 w-8"
                 src="/assets/bow_arrow.png"
                 alt="Bow & arrow logo"
               />
-              <span className="flex ml-2 text-xl font-medium uppercase tracking-wider">
+              <span className="text-xs sm:text-xl p-2 font-medium uppercase tracking-wider">
                 JOB HUNTER
               </span>
             </div>
           </div>
-          <span className="text-xs font-medium uppercase tracking-wider">
+          <span className="hidden sm:inline text-xs font-medium uppercase tracking-wider">
             {userName}
           </span>
           {session?.user && (
-            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <div className="flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <div className="flex items-center">
                 <img
-                  className="h-8 w-8 rounded-full"
+                  className="hidden sm:inline h-8 w-8 mr-2 rounded-full"
                   src={userProfileImage}
                   alt={userName}
                 />
 
                 <button
                   onClick={handleLogout}
-                  className="ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300"
                 >
                   Log out
                 </button>

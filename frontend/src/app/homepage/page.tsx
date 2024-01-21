@@ -153,7 +153,7 @@ export default function HomePage() {
           onSubmit={handleSubmit}
           className="w-4/5 mx-auto my-8 bg-gradient-to-b from-green-600 to-green-800 p-4 rounded-md"
         >
-          <div className="flex flex-row items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-center space-x-0 sm:space-x-4 space-y-4 sm:space-y-0">
             <input
               type="text"
               name="employer"
