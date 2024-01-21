@@ -212,7 +212,7 @@ export default function HomePage() {
           </div>
         </form>
         <div className="w-4/5 overflow-x-auto sm:overflow-x-visible  mx-auto">
-          <table className="min-w-full divide-y divide-gray-200 shadow-sm table-fixed w-full">
+          <table className="divide-y divide-gray-200 shadow-sm table-fixed sm:min-w-full">
             <thead className="bg-gray-50">
               <tr>
                 <th className="px-6 py-3 text-middle text-xs font-medium text-gray-500 uppercase tracking-wider">
