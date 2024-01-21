@@ -211,7 +211,7 @@ export default function HomePage() {
             </button>
           </div>
         </form>
-        <div className="w-4/5 mx-auto">
+        <div className="w-4/5 overflow-x-auto sm:overflow-x-visible  mx-auto">
           <table className="min-w-full divide-y divide-gray-200 shadow-sm table-fixed w-full">
             <thead className="bg-gray-50">
               <tr>
