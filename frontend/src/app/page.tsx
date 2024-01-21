@@ -7,11 +7,14 @@ export default function Home() {
   const { data: session } = useSession();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
-  if (session) {
-    console.log("Current user:", session.user);
-    // Redirect the user to the home page or display a message
-  }
+  useEffect(() => {
+    // When the component mounts, check if the user is already logged in
+    if (session) {
+      router.push("/homepage"); // If there's a session, redirect to the homepage
+    }
+  }, [session, router]); // Add session and router to the dependency array
 
   const handleSignIn = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
