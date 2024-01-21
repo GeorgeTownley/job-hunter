@@ -160,7 +160,7 @@ export default function HomePage() {
               value={formData.employer}
               onChange={handleChange}
               placeholder="Employer"
-              className="px-4 py-2 border rounded-md flex-grow"
+              className="px-4 py-2 border rounded-md flex-grow md:w-1/2"
             />
             <input
               type="date"
@@ -168,7 +168,7 @@ export default function HomePage() {
               value={formData.date_applied}
               onChange={handleChange}
               placeholder="Date Applied"
-              className="px-4 py-2 border rounded-md flex-grow"
+              className="px-4 py-2 border rounded-md flex-grow md:w-1/2"
             />
             <input
               type="text"
@@ -176,7 +176,7 @@ export default function HomePage() {
               value={formData.platform}
               onChange={handleChange}
               placeholder="Platform"
-              className="px-4 py-2 border rounded-md flex-grow"
+              className="px-4 py-2 border rounded-md flex-grow md:w-1/2"
             />
             <input
               type="text"
@@ -184,7 +184,7 @@ export default function HomePage() {
               value={formData.progress}
               onChange={handleChange}
               placeholder="Progress"
-              className="px-4 py-2 border rounded-md flex-grow"
+              className="px-4 py-2 border rounded-md flex-grow md:w-1/2"
             />
             <input
               type="text"
@@ -192,7 +192,7 @@ export default function HomePage() {
               value={formData.work_type}
               onChange={handleChange}
               placeholder="Work type"
-              className="px-4 py-2 border rounded-md flex-grow"
+              className="px-4 py-2 border rounded-md flex-grow md:w-1/2"
             />
             <input
               type="number"
@@ -200,7 +200,7 @@ export default function HomePage() {
               value={formData.pay}
               onChange={handleChange}
               placeholder="Pay"
-              className="px-4 py-2 border rounded-md flex-grow"
+              className="px-4 py-2 border rounded-md flex-grow md:w-1/2"
             />
 
             <button
