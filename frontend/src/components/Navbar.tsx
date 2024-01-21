@@ -7,7 +7,7 @@ const Navbar = () => {
     await signOut({ callbackUrl: "/" });
   };
 
-  const userProfileImage = session?.user?.image ?? "/default-profile.png";
+  const userProfileImage = session?.user?.image ?? "/assets/defaultimage.png";
   const userName = session?.user?.name ?? "User";
 
   return (
