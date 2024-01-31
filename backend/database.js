@@ -10,6 +10,14 @@ const db = new sqlite3.Database(
   }
 );
 
+db.run(`ALTER TABLE job_applications ADD COLUMN user_id INTEGER`, (err) => {
+  if (err) {
+    console.error(err.message);
+  } else {
+    console.log("Added user_id column to job_applications table.");
+  }
+});
+
 db.run(
   `CREATE TABLE IF NOT EXISTS job_applications (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
