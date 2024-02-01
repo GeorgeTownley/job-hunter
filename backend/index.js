@@ -37,18 +37,31 @@ app.get("/applications/all", (req, res) => {
   });
 });
 
-app.post("/applications", (req, res) => {
+const { getSession } = require("next-auth/react");
+
+app.post("/applications", async (req, res) => {
+  // Retrieve the user's session
+  const session = await getSession({ req });
+  if (!session || !session.user) {
+    // If no session is found, return an unauthorized error
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  // Extract the user ID from the session
+  const userId = session.user.id;
+
   // Destructure the properties from req.body
   const { employer, date_applied, platform, progress, work_type, pay } =
     req.body;
 
-  // Prepare the SQL query
-  const sql = `INSERT INTO job_applications (employer, date_applied, platform, progress, work_type, pay) VALUES (?, ?, ?, ?, ?, ?)`;
+  // Prepare the SQL query, including the user_id
+  const sql = `INSERT INTO job_applications (user_id, employer, date_applied, platform, progress, work_type, pay) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
   // Execute the SQL query
   db.run(
     sql,
-    [employer, date_applied, platform, progress, work_type, pay],
+    [userId, employer, date_applied, platform, progress, work_type, pay],
     function (err) {
       if (err) {
         console.error(err);
@@ -102,7 +115,6 @@ app.delete("/applications/:id", (req, res) => {
 
 // Registration route
 app.post("/register", async (req, res) => {
-  // Destructure the properties from req.body
   const { email, username, password } = req.body;
 
   // Check if the email or username already exists
