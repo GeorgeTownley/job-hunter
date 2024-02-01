@@ -93,12 +93,10 @@ app.put("/applications/:id", async (req, res) => {
         return;
       }
       if (this.changes === 0) {
-        res
-          .status(404)
-          .json({
-            error:
-              "No such application found or you do not have permission to edit it.",
-          });
+        res.status(404).json({
+          error:
+            "No such application found or you do not have permission to edit it.",
+        });
       } else {
         res.json({
           message: "Updated successfully",
@@ -110,24 +108,29 @@ app.put("/applications/:id", async (req, res) => {
 });
 
 app.delete("/applications/:id", async (req, res) => {
-  // Retrieve the user's session
   const session = await getSession({ req });
   if (!session || !session.user) {
-    // If no session is found, return an unauthorized error
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
 
-  db.run(sql, [id, userId], function (err) {
+  const userId = session.user.id;
+  const { id } = req.params;
+  const sqlDeleteApplication =
+    "DELETE FROM job_applications WHERE id = ? AND user_id = ?";
+
+  db.run(sqlDeleteApplication, [id, userId], function (err) {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
     }
     if (this.changes === 0) {
-      res.status(404).json({
-        error:
-          "No such application found or you do not have permission to delete it.",
-      });
+      res
+        .status(404)
+        .json({
+          error:
+            "No such application found or you do not have permission to delete it.",
+        });
     } else {
       res.json({ message: "Deleted successfully", rowsDeleted: this.changes });
     }
