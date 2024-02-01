@@ -47,26 +47,25 @@ app.get("/applications/all", async (req, res) => {
 });
 
 app.post("/applications", async (req, res) => {
-  // Retrieve the user's session
   const session = await getSession({ req });
   if (!session || !session.user) {
-    // If no session is found, return an unauthorized error
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
 
-  // Execute the SQL query
+  const userId = session.user.id;
+  const { employer, date_applied, platform, progress, work_type, pay } =
+    req.body;
+  const sqlInsertApplication = `INSERT INTO job_applications (user_id, employer, date_applied, platform, progress, work_type, pay) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+
   db.run(
-    sql,
+    sqlInsertApplication,
     [userId, employer, date_applied, platform, progress, work_type, pay],
     function (err) {
       if (err) {
-        console.error(err);
-        // If an error occurs, send the error message in the response
         res.status(500).json({ error: err.message });
         return;
       }
-      // If no error, send the newly created application ID in the response
       res.json({ id: this.lastID });
     }
   );
