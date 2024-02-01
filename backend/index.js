@@ -20,6 +20,12 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+// Extract the user ID from the session
+const userId = session.user.id;
+
+// Destructure the properties from req.body
+const { employer, date_applied, platform, progress, work_type, pay } = req.body;
+
 // -----------------------
 // Job Applications Routes
 // -----------------------
@@ -50,16 +56,6 @@ app.post("/applications", async (req, res) => {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
-
-  // Extract the user ID from the session
-  const userId = session.user.id;
-
-  // Destructure the properties from req.body
-  const { employer, date_applied, platform, progress, work_type, pay } =
-    req.body;
-
-  // Prepare the SQL query, including the user_id
-  const sql = `INSERT INTO job_applications (user_id, employer, date_applied, platform, progress, work_type, pay) VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
   // Execute the SQL query
   db.run(
@@ -96,12 +92,10 @@ app.put("/applications/:id", async (req, res) => {
         return;
       }
       if (this.changes === 0) {
-        res
-          .status(404)
-          .json({
-            error:
-              "No such application found or you do not have permission to edit it.",
-          });
+        res.status(404).json({
+          error:
+            "No such application found or you do not have permission to edit it.",
+        });
       } else {
         res.json({
           message: "Updated successfully",
@@ -112,17 +106,30 @@ app.put("/applications/:id", async (req, res) => {
   );
 });
 
-app.delete("/applications/:id", (req, res) => {
-  const { id } = req.params;
+app.delete("/applications/:id", async (req, res) => {
+  // Retrieve the user's session
+  const session = await getSession({ req });
+  if (!session || !session.user) {
+    // If no session is found, return an unauthorized error
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
 
-  const sql = "DELETE FROM job_applications WHERE id = ?";
-
-  db.run(sql, id, function (err) {
+  db.run(sql, [id, userId], function (err) {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
     }
-    res.json({ message: "Deleted successfully", rowsDeleted: this.changes });
+    if (this.changes === 0) {
+      res
+        .status(404)
+        .json({
+          error:
+            "No such application found or you do not have permission to delete it.",
+        });
+    } else {
+      res.json({ message: "Deleted successfully", rowsDeleted: this.changes });
+    }
   });
 });
 
