@@ -78,22 +78,36 @@ app.post("/applications", async (req, res) => {
   );
 });
 
-app.put("/applications/:id", (req, res) => {
-  const { id } = req.params;
-  const { employer, date_applied, platform, progress, work_type, pay } =
-    req.body;
-
-  const sql = `UPDATE job_applications SET employer = ?, date_applied = ?, platform = ?, progress = ?, work_type = ?, pay = ? WHERE id = ?`;
+app.put("/applications/:id", async (req, res) => {
+  // Retrieve the user's session
+  const session = await getSession({ req });
+  if (!session || !session.user) {
+    // If no session is found, return an unauthorized error
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
 
   db.run(
     sql,
-    [employer, date_applied, platform, progress, work_type, pay, id],
+    [employer, date_applied, platform, progress, work_type, pay, id, userId],
     function (err) {
       if (err) {
         res.status(500).json({ error: err.message });
         return;
       }
-      res.json({ message: "Updated successfully", rowsUpdated: this.changes });
+      if (this.changes === 0) {
+        res
+          .status(404)
+          .json({
+            error:
+              "No such application found or you do not have permission to edit it.",
+          });
+      } else {
+        res.json({
+          message: "Updated successfully",
+          rowsUpdated: this.changes,
+        });
+      }
     }
   );
 });
