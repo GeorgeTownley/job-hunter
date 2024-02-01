@@ -10,6 +10,8 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
+const { getSession } = require("next-auth/react");
+
 app.get("/applications", (req, res) => {
   res.send("Hello from the backend!");
 });
@@ -22,22 +24,23 @@ app.listen(port, () => {
 // Job Applications Routes
 // -----------------------
 
-app.get("/applications/all", (req, res) => {
-  const sql = "SELECT * FROM job_applications";
-  db.all(sql, [], (err, rows) => {
+app.get("/applications/all", async (req, res) => {
+  // Assuming session and userId have been retrieved earlier in the code
+  if (!session || !session.user) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  // Use the userId that was already retrieved
+  const sqlGetApplications = "SELECT * FROM job_applications WHERE user_id = ?";
+  db.all(sqlGetApplications, [userId], (err, rows) => {
     if (err) {
-      // If an error occurs, send the error message in the response
       res.status(500).json({ error: err.message });
       return;
     }
-    // If no error, send the retrieved rows (data) in the response
-    res.json({
-      data: rows,
-    });
+    res.json({ data: rows });
   });
 });
-
-const { getSession } = require("next-auth/react");
 
 app.post("/applications", async (req, res) => {
   // Retrieve the user's session
