@@ -20,10 +20,6 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-// Extract the user ID from the session
-const userId = session.user.id;
-
-// Destructure the properties from req.body
 const { employer, date_applied, platform, progress, work_type, pay } = req.body;
 
 // -----------------------
@@ -31,15 +27,17 @@ const { employer, date_applied, platform, progress, work_type, pay } = req.body;
 // -----------------------
 
 app.get("/applications/all", async (req, res) => {
-  // Assuming session and userId have been retrieved earlier in the code
+  // Retrieve the user's session
+  const session = await getSession({ req });
   if (!session || !session.user) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
 
-  // Use the userId that was already retrieved
-  const sqlGetApplications = "SELECT * FROM job_applications WHERE user_id = ?";
-  db.all(sqlGetApplications, [userId], (err, rows) => {
+  const userId = session.user.id;
+  const sqlGetUserApplications =
+    "SELECT * FROM job_applications WHERE user_id = ?";
+  db.all(sqlGetUserApplications, [userId], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
@@ -121,12 +119,10 @@ app.delete("/applications/:id", async (req, res) => {
       return;
     }
     if (this.changes === 0) {
-      res
-        .status(404)
-        .json({
-          error:
-            "No such application found or you do not have permission to delete it.",
-        });
+      res.status(404).json({
+        error:
+          "No such application found or you do not have permission to delete it.",
+      });
     } else {
       res.json({ message: "Deleted successfully", rowsDeleted: this.changes });
     }
