@@ -20,8 +20,6 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-const { employer, date_applied, platform, progress, work_type, pay } = req.body;
-
 // -----------------------
 // Job Applications Routes
 // -----------------------
@@ -125,12 +123,10 @@ app.delete("/applications/:id", async (req, res) => {
       return;
     }
     if (this.changes === 0) {
-      res
-        .status(404)
-        .json({
-          error:
-            "No such application found or you do not have permission to delete it.",
-        });
+      res.status(404).json({
+        error:
+          "No such application found or you do not have permission to delete it.",
+      });
     } else {
       res.json({ message: "Deleted successfully", rowsDeleted: this.changes });
     }
